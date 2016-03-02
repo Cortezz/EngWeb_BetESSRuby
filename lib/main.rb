@@ -5,6 +5,7 @@ require_relative './users/bookie'
 require_relative './users/admin'
 require_relative './users/user'
 require_relative './users/punter'
+require_relative './users/userList'
 ## UI
 require_relative 'UI/menu'
 
@@ -51,5 +52,9 @@ class Main
 
 end
 
-m = Main.new()
-m.mainApp
+#m = Main.new()
+#m.mainApp
+
+u = Users::UserList.new()
+u.addPunter("josé","romeu@gmail.com","12345")
+puts u.toString
