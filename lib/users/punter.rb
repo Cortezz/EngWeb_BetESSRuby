@@ -1,33 +1,36 @@
 $LOAD_PATH << '.'
-require "user"
+require_relative "user"
 
-class Punter < User
 
-    def initialize(name, email, pwd)
-      super(name,email,pwd)
-      @betESSCoins = 0
-    end
+module Users
+  class Punter < User
 
-    ##Getters and Setters
-    def getBetESSCoisn
-      @betESSCoins
-    end
+      def initialize(name, email, pwd)
+        super(name,email,pwd)
+        @betESSCoins = 0
+      end
 
-    ############## COINS ################
+      ##Getters and Setters
+      def getBetESSCoisn
+        @betESSCoins
+      end
 
-    ## Credits coins into the punter's account
-    def creditCoins(amount)
-      @betESSCoins += amount
-    end
+      ############## COINS ################
 
-    ## Debits coins from the punter's account
-    def debitCoints(amount)
-      @betESSCoins -= amount
-    end
-    #####################################
+      ## Credits coins into the punter's account
+      def creditCoins(amount)
+        @betESSCoins += amount
+      end
 
-    def toString
-      super + "BetESSCoins: #{@betESSCoins}\n"
-    end
+      ## Debits coins from the punter's account
+      def debitCoints(amount)
+        @betESSCoins -= amount
+      end
+      #####################################
 
+      def toString
+        super + "BetESSCoins: #{@betESSCoins}\n"
+      end
+
+  end
 end

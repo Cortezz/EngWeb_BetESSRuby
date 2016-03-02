@@ -1,50 +1,53 @@
-#Class which represents the user
-class User
-    def initialize(name, email, pwd)
-      @name = name
-      @email = email
-      @password = pwd
-      @notifications = []
-    end
 
-    def getEmail
-      @email
-    end
+module Users
+  #Class which represents the user
+  class User
+      def initialize(name, email, pwd)
+        @name = name
+        @email = email
+        @password = pwd
+        @notifications = []
+      end
 
-    def getName
-      @name
-    end
+      def getEmail
+        @email
+      end
 
-    def getPassword
-      @password
-    end
+      def getName
+        @name
+      end
 
-    def toString
-      "Name: #{@name}\nE-mail: #{@email}\nPassword: #{@password}\n"
-    end
+      def getPassword
+        @password
+      end
 
-    ################# NOTIFICATIONS ####################
+      def toString
+        "Name: #{@name}\nE-mail: #{@email}\nPassword: #{@password}\n"
+      end
 
-    # Pushes a notification to the notification list
-    def pushNotification(notification)
-      @notifications.push(notification)
-    end
+      ################# NOTIFICATIONS ####################
 
-    # Returns a string with all the notifications in it
-    def notificationList
-      s = "List of notifications:\n"
-      @notifications.each {|x| s << x << "\n"}
-      s
-    end
+      # Pushes a notification to the notification list
+      def pushNotification(notification)
+        @notifications.push(notification)
+      end
 
-    # Returns the amount of notifications
-    def amountOfNotifications
-      @notifications.length
-    end
+      # Returns a string with all the notifications in it
+      def notificationList
+        s = "List of notifications:\n"
+        @notifications.each {|x| s << x << "\n"}
+        s
+      end
 
-    # Empties the notification list
-    def removeNotifications
-      @notifications.clear
-    end
-    #######################################################
+      # Returns the amount of notifications
+      def amountOfNotifications
+        @notifications.length
+      end
+
+      # Empties the notification list
+      def removeNotifications
+        @notifications.clear
+      end
+      #######################################################
+  end
 end

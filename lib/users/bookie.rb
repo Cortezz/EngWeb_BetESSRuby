@@ -1,5 +1,5 @@
 $LOAD_PATH << '.'
-require 'user'
+require_relative 'user'
 require 'set'
 
 module Users

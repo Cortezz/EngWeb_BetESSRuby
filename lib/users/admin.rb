@@ -1,10 +1,13 @@
 $LOAD_PATH << '.'
-require "user"
+require_relative "user"
 
-class Admin < User
 
-    def initialize (name, email, pwd, coco)
-      super(name,email,pwd)
-    end
+module Users
+  class Admin < User
 
+      def initialize (name, email, pwd, coco)
+        super(name,email,pwd)
+      end
+
+   end
 end
