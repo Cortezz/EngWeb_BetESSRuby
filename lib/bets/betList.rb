@@ -22,7 +22,7 @@ module Bets
       def addBet(betID, description, punter, option, odds, coins)
          b = Bets::Bet.new(betID,description, punter,option,odds,coins)
          @bets[betID] = b
-         betCount += 1
+         @betCount += 1
       end
 
       #################################

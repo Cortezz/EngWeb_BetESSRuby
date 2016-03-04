@@ -85,7 +85,7 @@ class UserList_Tests < Test::Unit::TestCase
    end
 
    ## removeNotificationsFrom tests
-   def test_removeNotificationsFrom2
+   def test_removeNotificationsFrom3
       @users.pushNotificationTo(@email,"Not1!")
       @users.pushNotificationTo(@email,"Not1!")
       @users.removeNotificationsFrom(@email)

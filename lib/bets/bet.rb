@@ -6,7 +6,7 @@ module Bets
 
       attr_reader :betID
       attr_reader :desc
-      attr_reader :name
+      attr_reader :punter
       attr_reader :opt
       attr_reader :odd
       attr_reader :coins
