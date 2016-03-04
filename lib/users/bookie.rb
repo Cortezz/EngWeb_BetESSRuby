@@ -29,6 +29,11 @@ module Users
     def unsubscribeTo (event)
       @subscribedEvents.delete?(event)
     end
+
+    # Returns the amount of subscribed events
+    def amountOfSubscribedEvents
+      @subscribedEvents.length
+   end
     #########################################
 
     def toString

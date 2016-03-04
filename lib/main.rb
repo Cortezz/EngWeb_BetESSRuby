@@ -56,5 +56,6 @@ end
 #m.mainApp
 
 u = Users::UserList.new()
-u.addPunter("josé","romeu@gmail.com","12345")
-puts u.toString
+u.addPunter("josé","romeu@gmail.com","12s345")
+u.creditCoinsTo("romeu@gmail.com", 125)
+puts u.getBetESSCoinsFrom("romeu@gmail.com").to_s

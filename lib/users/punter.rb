@@ -11,7 +11,7 @@ module Users
       end
 
       ##Getters and Setters
-      def getBetESSCoisn
+      def getBetESSCoins
         @betESSCoins
       end
 
@@ -23,7 +23,7 @@ module Users
       end
 
       ## Debits coins from the punter's account
-      def debitCoints(amount)
+      def debitCoins(amount)
         @betESSCoins -= amount
       end
       #####################################
