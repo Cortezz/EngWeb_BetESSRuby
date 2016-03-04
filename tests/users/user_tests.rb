@@ -12,15 +12,15 @@ class User_Tests < Test::Unit::TestCase
 
    ### Getters test
    def test_getEmail1
-      assert_equal(@email, @u.getEmail)
+      assert_equal(@email, @u.email)
    end
 
    def test_getPassword1
-      assert_equal(@password, @u.getPassword)
+      assert_equal(@password, @u.password)
    end
 
    def test_getName1
-      assert_equal(@name, @u.getName)
+      assert_equal(@name, @u.name)
    end
 
    ############ NOTIFICATIONS ####################

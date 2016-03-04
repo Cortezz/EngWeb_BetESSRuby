@@ -12,15 +12,15 @@ class Admin_Tests < Test::Unit::TestCase
 
    ## Getters tests
    def test_getAdminName1
-      assert_equal(@a.getName, @name)
+      assert_equal(@a.name, @name)
    end
 
    def test_getAdminEmail1
-      assert_equal(@a.getEmail, @email)
+      assert_equal(@a.email, @email)
    end
 
    def test_getAdminPassword1
-      assert_equal(@a.getPassword, @password)
+      assert_equal(@a.password, @password)
    end
    ##########################
 end

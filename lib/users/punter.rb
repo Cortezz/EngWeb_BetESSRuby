@@ -5,16 +5,13 @@ require_relative "user"
 module Users
   class Punter < User
 
+     attr_reader :betESSCoins
+
       def initialize(name, email, pwd)
         super(name,email,pwd)
         @betESSCoins = 0
       end
-
-      ##Getters and Setters
-      def getBetESSCoins
-        @betESSCoins
-      end
-
+      
       ############## COINS ################
 
       ## Credits coins into the punter's account

@@ -100,7 +100,7 @@ class UserList_Tests < Test::Unit::TestCase
    def test_addPunter1
       @users.addPunter("aaa","bbb@","ccc")
       u = @users.getUser("bbb@")
-      assert_equal("aaa", u.getName)
+      assert_equal("aaa", u.name)
    end
 
    def test_addPunter2

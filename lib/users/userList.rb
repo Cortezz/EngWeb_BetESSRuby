@@ -6,10 +6,11 @@ require_relative 'bookie'
 
 module Users
    class UserList
+
+
       def initialize
          @users = Hash.new
       end
-
 
       ################ USERS ##################
 
@@ -26,7 +27,7 @@ module Users
       #Check if some user's credentials are correct
       def checkCredentials (email, pwd)
             u = @users[email]
-            (email == u.getEmail && pwd == u.getPassword)
+            (email == u.email && pwd == u.password)
       end
 
       # Pushes a notification to a certain user
@@ -59,7 +60,7 @@ module Users
 
       # Gets the amount of coins from a certain user
       def getBetESSCoinsFrom (email)
-         @users[email].getBetESSCoins
+         @users[email].betESSCoins
       end
 
       #Credits coins to a certain user

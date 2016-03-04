@@ -2,6 +2,11 @@
 module Users
   #Class which represents the user
   class User
+
+      attr_reader :name
+      attr_reader :email
+      attr_reader :password
+
       def initialize(name, email, pwd)
         @name = name
         @email = email
@@ -9,17 +14,7 @@ module Users
         @notifications = []
       end
 
-      def getEmail
-        @email
-      end
 
-      def getName
-        @name
-      end
-
-      def getPassword
-        @password
-      end
 
       def toString
         "Name: #{@name}\nE-mail: #{@email}\nPassword: #{@password}\n"

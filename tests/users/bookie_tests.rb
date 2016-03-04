@@ -12,15 +12,15 @@ class Bookie_Tests < Test::Unit::TestCase
 
    ## Getters
    def test_getName1
-      assert_equal(@b.getName, @name)
+      assert_equal(@b.name, @name)
    end
 
    def test_getEmail1
-      assert_equal(@b.getEmail, @email)
+      assert_equal(@b.email, @email)
    end
 
    def test_getPassword1
-      assert_equal(@b.getPassword, @password)
+      assert_equal(@b.password, @password)
    end
 
    def test_getSubscribedEvents1
