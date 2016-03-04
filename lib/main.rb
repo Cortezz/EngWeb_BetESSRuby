@@ -6,6 +6,9 @@ require_relative './users/admin'
 require_relative './users/user'
 require_relative './users/punter'
 require_relative './users/userList'
+## Bets
+require_relative './bets/bet'
+require_relative './bets/betList'
 ## UI
 require_relative 'UI/menu'
 
