@@ -8,6 +8,8 @@ require_relative './users/userList_tests'
 ############ BET TESTS ############
 require_relative './bets/bet_tests'
 require_relative './bets/betList_tests'
+############ BET ESS ##############
+require_relative 'facade_tests'
 
 
 

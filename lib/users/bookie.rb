@@ -7,9 +7,7 @@ module Users
   class Bookie < User
 
     def initialize(name, email, pwd)
-      @name = name
-      @email = email
-      @password = pwd
+      super(name,email,pwd)
       @subscribedEvents = Set.new([])
     end
 

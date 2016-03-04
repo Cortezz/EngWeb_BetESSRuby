@@ -5,19 +5,21 @@ class UserList_Tests < Test::Unit::TestCase
 
    def setup
       @users = Users::UserList.new
-      @email = @email
+      @email = "j@gmail.com"
+      @bookieEmail = "b@gmail.com"
       @users.addPunter("user",@email,"12345")
+      @users.addBookie("bookie", @bookieEmail, "b123")
    end
 
    ######### USERS ###########
 
    ## validateEmail tests
    def test_validateEmail1
-      assert_equal(true, @users.validateEmail(@email))
+      assert_equal(false, @users.validateEmail(@email))
    end
 
    def test_validateEmail2
-      assert_equal(false, @users.validateEmail("aaaaaaa"))
+      assert_equal(true, @users.validateEmail("aaaaaaa"))
    end
 
    ## checkCredentials tests
@@ -32,6 +34,8 @@ class UserList_Tests < Test::Unit::TestCase
    def test_checkCredentials3
       assert_equal(false, @users.checkCredentials(@email, "1234 5"))
    end
+
+   ########### NOTIFICATIONS ############
 
    ##pushNotificationTo tests
    def test_pushNotificationTo1
@@ -56,6 +60,10 @@ class UserList_Tests < Test::Unit::TestCase
       @users.pushNotificationTo(@email, "Not!")
       @users.pushNotificationTo(@email, "Not!")
       assert_equal(@users.amountOfNotificationsFrom(@email),4)
+   end
+
+   def test_amountOfNotificationsFrom4
+      assert_equal(@users.amountOfNotificationsFrom(@bookieEmail),0)
    end
 
    def test_notificationListFrom1

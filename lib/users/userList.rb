@@ -21,7 +21,7 @@ module Users
 
       #Checks whether an e-mail is already in the system
       def validateEmail(email)
-         @users.has_key?(email)
+         !@users.has_key?(email)
       end
 
       #Check if some user's credentials are correct

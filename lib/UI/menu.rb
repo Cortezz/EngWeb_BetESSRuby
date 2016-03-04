@@ -2,15 +2,13 @@ module UI
 
    class Menu
 
+      attr_reader :option
+
       def initialize(lines)
          @lines = lines
          @option = 0
       end
 
-      ## Getters
-      def getOption
-         @option
-      end
 
       ############
       def showMenu
