@@ -61,6 +61,23 @@ class Facade
       @users.creditCoinsTo(email,amount)
    end
 
+   ##Returns the bet history in string representation from a punter, given his e-mail.
+   def fBetHistoryFrom (email)
+      openBets = @users.getOpenBetsFrom(email)
+      closedBets = @users.getClosedBetsFrom(email)
+      s = "\t\tOpen Bets \n"
+      openBets.each {|betID| s << @bets.getBet(betID).toString << "\n----\n"}
+      s << "\t\tClosed Bets\n"
+      closedBets.each {|betID| s << @bets.getBet(betID).toString << "\n----\n"}
+      s
+   end
+
+   ## Adds a bet to a certain punter, given his e-mail.
+   def fAddOpenBetTo (betID, email)
+      @users.addOpenBetTo(betID,email)
+   end
+
+
    ########### BOOKIES ################
 
    ## Adds a bookie to the system.
@@ -86,6 +103,18 @@ class Facade
    end
 
    ############# BETS #################
+
+
+   ##### NEEDS EVENT AS PARAM AS WELL!
+   def fAddBet (betID, punter, option, odds, coins)
+      @bets.addBet(betID,"FC PORTO X SC BRAGA",punter,option,odds,coins)
+      ##### EVENT.add(betID)
+   end
+
+   ## Returns the amount of bets stored in the system.
+   def fGetBetCounter
+      @bets.betCount
+   end
 
    ## TO-DO
 

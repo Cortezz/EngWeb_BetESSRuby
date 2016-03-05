@@ -23,7 +23,7 @@ class Bet_Tests < Test::Unit::TestCase
    ## addBet tests
    def test_addBet1
       @bets.addBet(2, "FC Porto x SL Benfica", "awwwh@gmail.com", 1, 1.5, 100)
-      assert_equal(2, @bets.betCount)
+      assert_equal(3, @bets.betCount)
    end
 
    def test_addBet2

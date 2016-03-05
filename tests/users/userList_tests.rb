@@ -136,6 +136,45 @@ class UserList_Tests < Test::Unit::TestCase
    def test_getBetESSCoinsFrom1
       assert_equal(@users.getBetESSCoinsFrom(@email),0)
    end
+
+   ## addOpenBetTo tests
+   def test_addOpenBetTo1
+      assert_equal(0, @users.getOpenBetsFrom(@email).size())
+   end
+
+   def test_addOpenBetTo2
+      @users.addOpenBetTo(1,@email)
+      assert_equal(1, @users.getOpenBetsFrom(@email).size())
+   end
+
+   def test_addOpenBetTo3
+      @users.addOpenBetTo(2,@email)
+      @users.addOpenBetTo(1,@email)
+      @users.addOpenBetTo(1,@email)
+      @users.addOpenBetTo(3,@email)
+      assert_equal(3, @users.getOpenBetsFrom(@email).size())
+   end
+
+   ## closeOpenBet tests
+   def test_closeOpenBetTo1
+      assert_equal(0, @users.getClosedBetsFrom(@email).size())
+   end
+
+   def test_closeOpenBetTo2
+      @users.addOpenBetTo(1,@email)
+      @users.closeOpenBetTo(1,@email)
+      assert_equal(true, (@users.getClosedBetsFrom(@email).size()==1 && @users.getOpenBetsFrom(@email).size()==0))
+   end
+
+   def test_closeOpenBetTo3
+      @users.addOpenBetTo(2,@email)
+      @users.addOpenBetTo(4,@email)
+      @users.addOpenBetTo(5,@email)
+      @users.closeOpenBetTo(5,@email)
+      @users.closeOpenBetTo(4,@email)
+      @users.closeOpenBetTo(100,@email)
+      assert_equal(true, (@users.getClosedBetsFrom(@email).size()==2 && @users.getOpenBetsFrom(@email).size()==1))
+   end
    ################################
 
    ############ BOOKIE ############

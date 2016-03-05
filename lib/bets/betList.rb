@@ -8,7 +8,7 @@ module Bets
 
       def initialize
          @bets = Hash.new
-         @betCount = 0
+         @betCount = 1
       end
 
       ############# BETS ###############
