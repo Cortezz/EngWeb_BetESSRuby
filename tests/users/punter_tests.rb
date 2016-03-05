@@ -51,5 +51,48 @@ class Punter_Tests < Test::Unit::TestCase
       @p.debitCoins(150)
       assert_equal(0, @p.betESSCoins)
    end
-   #############################
+   ############## BETS ##############
+
+   ## addOpenBet tests
+   def test_addOpenBet1
+      assert_equal(0, @p.openBets.size())
+   end
+
+   def test_addOpenBet2
+      @p.addOpenBet(1)
+      assert_equal(1, @p.openBets.size())
+   end
+
+   def test_addOpenBet3
+      @p.addOpenBet(1)
+      @p.addOpenBet(2)
+      @p.addOpenBet(1)
+      @p.addOpenBet(3)
+      assert_equal(3, @p.openBets.size())
+   end
+
+   ## closeOpenBet tests
+   def test_closeOpenBet1
+      assert_equal(0, @p.closedBets.size())
+   end
+
+   def test_closeOpenBet2
+      @p.addOpenBet(1)
+      @p.closeOpenBet(1)
+      assert_equal(true, (@p.closedBets.size()==1 && @p.openBets.size()==0))
+   end
+
+   def test_closeOpenBet3
+      @p.addOpenBet(2)
+      @p.addOpenBet(4)
+      @p.addOpenBet(5)
+      @p.closeOpenBet(5)
+      @p.closeOpenBet(4)
+      @p.closeOpenBet(100)
+      assert_equal(true, (@p.closedBets.size()==2 && @p.openBets.size()==1))
+   end
+
+
+
+   ##
 end

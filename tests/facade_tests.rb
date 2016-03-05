@@ -80,6 +80,7 @@ class Facade_Tests < Test::Unit::TestCase
       assert_equal(@BetESS.fGetBetESSCoinsFrom(@email),0)
    end
 
+
    ########### BOOKIES ################
 
    ## fAddSubscribedEventTo/fGetSubscribedEventsFrom tests

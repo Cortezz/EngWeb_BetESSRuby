@@ -73,6 +73,25 @@ module Users
          @users[email].debitCoins(amount)
       end
 
+      # Adds a bet to a certain punter, given his e-mail.
+      def addOpenBetTo (betID, email)
+         @users[email].addOpenBet(betID)
+      end
+
+      # Removes a bet from the punter's open bet list and inserts the same bet into the closed bet list.
+      def closeOpenBetTo(betID, email)
+         @users[email].closeOpenBet(betID)
+      end
+
+      # Displays the history of all open bets taken by a punter
+      def getOpenBetsFrom (email)
+         @users[email].openBets
+      end
+
+      # Displays the history of all closed bets from a punter
+      def getClosedBetsFrom (email)
+         @users[email].closedBets
+      end
       ############################################
 
 
