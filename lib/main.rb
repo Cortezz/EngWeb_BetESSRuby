@@ -13,6 +13,7 @@ require_relative './bets/betList'
 require_relative './events/event'
 require_relative './events/normalEvent'
 ## sports
+require_relative  './sports/sportsList'
 require_relative './sports/sport'
 require_relative './sports/football'
 ## UI
@@ -25,6 +26,7 @@ class Main
    def initialize
       puts "##############################\n\n    Welcome to BetESS v4.0! \n"
       @BetESS = Facade.new
+      loadSports
       loadMenus
    end
 
@@ -109,7 +111,7 @@ class Main
          case @punterMenu.option
             when 1 then puts listOfEvents
             when 2 then puts historyOfBets(email)
-            when 3 then puts "PlaceBet()"
+            when 3 then puts placeBet(email)
             when 4 then puts availableCoins(email)
             when 5 then puts insertCoins(email)
          end
@@ -127,6 +129,30 @@ class Main
       puts (@BetESS.fBetHistoryFrom(email))
    end
 
+   ## This method will allows the punter to take bets.
+   def placeBet (email)
+      events = @BetESS.fMapOfAllEvents
+      puts (@BetESS.fDisplayEvents)
+
+      puts "#############################\nWhich event do you want to bet on: "
+      id = gets.chomp.to_i
+      event = events[id]
+
+      puts "------------\n#{event.toString}------------\n"
+      puts "What do you want to bet on (NOTE: Draw is represented by 0):"
+      option = gets.chomp.to_i
+      puts "Amount of coins: "
+      coins = gets.chomp.to_f
+
+      odd = event.getSpecificOdd(option)
+      @BetESS.fAddOpenBetTo(@BetESS.fGetBetCount, email)
+      @BetESS.fAddBet(event, @BetESS.fGetBetCount, email, option, odd, coins)
+      @BetESS.fDebitCoinsFrom(email,coins)
+      puts "The bet was successfully created!"
+   end
+
+
+
    # Shows how many coins a user has.
    def availableCoins (email)
       puts "The amount of coins in your account is: #{@BetESS.fGetBetESSCoinsFrom(email)}"
@@ -140,13 +166,8 @@ class Main
       puts "The amount of coins in your account is: #{@BetESS.fGetBetESSCoinsFrom(email)}"
    end
 
+   ##################### BOOKIE APP ######################
 
-
-
-
-
-
-   ########################################################
    def bookieApp(email)
       loop do
 
@@ -158,7 +179,7 @@ class Main
 
          @bookieMenu.executeMenu
          case @bookieMenu.option
-            when 1 then puts "showSportsMenu()"
+            when 1 then puts showSportsMenu(email)
             when 2 then puts "changeOdds()"
             when 3 then puts "subscribeToEvent()"
             when 4 then puts "ListOfSubscribedEvents()"
@@ -166,6 +187,38 @@ class Main
          break if (@bookieMenu.option==0)
       end
    end
+
+   ## Method which will display every available sport. The admin will only be able to place events related to these sports.
+   def showSportsMenu (email)
+      loop do
+         @sportsMenu.executeMenu
+         case @sportsMenu.option
+            when 1 then insertNormalEvent("Football",email)
+         end
+         break if (@sportsMenu.option==0)
+      end
+   end
+
+   ## Inserts a normal event (possible outcomes are victory, draw and loss).
+   def insertNormalEvent(sportname, bookieEmail)
+      puts "Description:"
+      description = gets.chomp
+      puts "Odds:\n1:"
+      odd1 = gets.chomp.to_f
+      puts "X: "
+      drawOdd = gets.chomp.to_f
+      puts "2: "
+      odd2 = gets.chomp.to_f
+
+      ne = Events::NormalEvent.new(@BetESS.fGetEventCount, description,bookieEmail,odd1,odd2,drawOdd)
+      @BetESS.fAddEvent(sportname,ne)
+      #@BetESS.fSubscribeBookieToEvent(ne.eventID,bookieEmail)
+      @BetESS.fAddSubscribedEventTo(bookieEmail, ne.eventID)
+      puts "Event was successfully added!"
+   end
+
+
+   ##################### ADMIN APP ######################
 
    def adminApp
       loop do
@@ -178,15 +231,24 @@ class Main
       end
    end
 
+   ######################################################
 
 
+
+   def loadSports
+      f = Sports::Football.new("Football")
+      @BetESS.fAddSport(f.name,f)
+   end
 
    def loadMenus
       loginM = ["Register", "Login", "Admin Register", "Admin Login", "Bookie Register","Bookie Login"]
-      punterM = ["List of events", "History of bets", "Place a bet", "Coins available", "Insert coins"]
+      punterM = ["List of events", "History of bets", "Place a bet", "Available coins", "Insert coins"]
       adminM = ["Determine outcome of event"]
       bookieM = ["Insert Event", "Change Odds of an Event", "Subscribe to an event", "List of subscribed events"]
+      sports = ["Football"]
 
+
+      @sportsMenu = UI::Menu.new(sports)
       @loginMenu = UI::Menu.new(loginM)
       @punterMenu = UI::Menu.new(punterM)
       @adminMenu = UI::Menu.new(adminM)

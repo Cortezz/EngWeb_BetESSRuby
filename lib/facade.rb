@@ -88,8 +88,8 @@ class Facade
    end
 
    ## Adds a subscrived event to a bookie.
-   def fAddSubscribedEventTo(eventID, email)
-      @users.addSubscribedEventTo(eventID, email)
+   def fAddSubscribedEventTo(email, eventID)
+      @users.addSubscribedEventTo(email, eventID)
    end
 
    ## Returns all subscribed event IDs from a certain bookie, given his e-mail.
@@ -169,7 +169,7 @@ class Facade
 
 
    ## Returns the amount of bets stored in the system.
-   def fGetBetCounter
+   def fGetBetCount
       @bets.betCount
    end
 
