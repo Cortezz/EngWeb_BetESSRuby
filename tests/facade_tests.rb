@@ -9,6 +9,10 @@ class Facade_Tests < Test::Unit::TestCase
       @name = "josé"
       @email = "jo@gmail.com"
       @pwd = "12345"
+      @ne = Events::NormalEvent.new(1,"FC Porto x SC Braga", "j@gmail.com",1.5,2,5)
+      @f = Sports::Football.new ("Football")
+      @BetESS.fAddSport(@f.name, @f)
+      @BetESS.fAddEvent(@f.name, @ne)
       @BetESS.fAddPunter(@name, @email, @pwd)
    end
 
@@ -96,5 +100,97 @@ class Facade_Tests < Test::Unit::TestCase
       events = @BetESS.fGetSubscribedEventsFrom("email")
       assert_equal(true, events.include?(2))
    end
+   ############ EVENTS ##############
+
+   ## fAddEvent tests
+   def test_fAddEvent1
+      events = @BetESS.fMapOfAllEvents
+      assert_equal(1, events.length)
+   end
+
+   def test_fAddEvent2
+      ne2 = Events::NormalEvent.new(2,"FC Porto x SC Braga", "j@gmail.com",1.5,2,5)
+      @BetESS.fAddEvent(@f.name, ne2)
+      events = @BetESS.fMapOfAllEvents
+      assert_equal(2, events.length)
+   end
+
+   ## fGetAllEvents tests
+   def test_fGetAllEvents1
+      events = @BetESS.fGetAllEvents
+      assert_equal(1, events.length)
+   end
+
+   def test_fGetAllEvents2
+      events = @BetESS.fGetAllEvents
+      football = events[@f.name]
+      assert_equal(true, football.has_key?(1))
+   end
+
+   def test_fGetAllEvents3
+      events = @BetESS.fGetAllEvents
+      football = events[@f.name]
+      assert_equal(false, football.has_key?(2))
+   end
+
+   ## fDisplayOddsFrom tests
+   def test_fDisplayOddsFrom1
+      odds = @BetESS.fDisplayOddsFrom(1)
+      assert_equal(true, 1.5==odds[0].odd && 5==odds[1].odd && 2==odds[2].odd)
+   end
+
+   ## fMapOfAllEvents tests
+   def test_fMapOfAllEvents1
+      events = @BetESS.fMapOfAllEvents
+      assert_equal(true, events.length==1 && events.has_key?(1))
+   end
+
+   def test_fMapOfAllEvents2
+      ne2 = Events::NormalEvent.new(2,"FC Porto x SC Braga", "j@gmail.com",1.5,2,5)
+      @BetESS.fAddEvent(@f.name, ne2)
+      events = @BetESS.fMapOfAllEvents
+      assert_equal(true, events.length==2 && events.has_key?(1) && events.has_key?(2))
+   end
+
+   ## fChangeOddsTo tests
+   def test_fChangeOddsTo1
+      @BetESS.fChangeOddsTo(1,[10,9,8])
+      odds = @BetESS.fDisplayOddsFrom(1)
+      assert_equal(true, (10==odds[0].odd && 9==odds[1].odd && 8==odds[2].odd))
+   end
+
+   ## fGetEventCount tests
+   def test_fGetEventCount1
+      assert_equal(2, @BetESS.fGetEventCount)
+   end
+
+   ## fRemoveEvent tests
+   def test_fRemoveEvent1
+      @BetESS.fRemoveEvent(1)
+      events = @BetESS.fMapOfAllEvents
+      assert_equal(0, events.length)
+   end
+
+   def test_fRemoveEvent2
+      ne2 = Events::NormalEvent.new(2,"FC Porto x SC Braga", "j@gmail.com",1.5,2,5)
+      @BetESS.fAddEvent(@f.name, ne2)
+      @BetESS.fRemoveEvent(1)
+      events = @BetESS.fMapOfAllEvents
+      assert_equal(1, events.length)
+   end
+
+
+   ########## BETS #################
+
+   ## fAddBet tests
+   def test_fAddBet1
+      events = @BetESS.fMapOfAllEvents
+      e1 = events[1]
+      @BetESS.fAddBet(e1, 5, "f@gmail.com",1, 5.22, 200)
+      assert_equal(true,e1.bets.include?(5))
+   end
+
+
+
 
 end

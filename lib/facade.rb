@@ -2,12 +2,14 @@ $LOAD_PATH << '.'
 
 require_relative './users/userList'
 require_relative './bets/betList'
+require_relative './sports/sportsList'
 
 class Facade
 
    def initialize
          @users = Users::UserList.new
          @bets = Bets::BetList.new
+         @sports = Sports::SportsList.new
    end
 
 
@@ -102,14 +104,69 @@ class Facade
       @users.addAdmin(name,email,pwd)
    end
 
+   ############# SPORTS ###############
+
+   ## Adds a sport into the system.
+   def fAddSport (name, sport)
+      @sports.addSport(name,sport)
+   end
+
+   ############# EVENTS ###############
+
+   ## Adds an event to the system.
+   def fAddEvent(name,event)
+      @sports.addEvent(name,event)
+   end
+
+   ## fSubscribeBookieToEvent!
+
+   ## The events are mapped according to the sport they represent. This method returns a single collection with all events in it.
+   def fGetAllEvents
+      @sports.getAllEvents
+   end
+
+   ## Returns all events in string representation
+   def fDisplayEvents
+      @sports.displayEvents
+   end
+
+   ## Changes the odds of an event.
+   def fDisplayOddsFrom (eventID)
+      @sports.slDisplayOddsFrom(eventID)
+   end
+
+   ## Changes the odds of an event.
+   def fChangeOddsTo (eventID, newOdds)
+      @sports.slChangeOddsTo(eventID,newOdds)
+   end
+
+   ## Returns a map with every existing event, mapped according to its ID.
+   def fMapOfAllEvents
+      @sports.mapOfAllEvents
+   end
+
+   ## Returns the amount of events stored in the system.
+   def fGetEventCount
+      @sports.eventCount
+   end
+
+   ## Auxiliar method called by @CloseBet in order to remove an event from the system.
+   def fRemoveEvent (e)
+      @sports.removeEvent(e)
+   end
    ############# BETS #################
 
 
    ##### NEEDS EVENT AS PARAM AS WELL!
-   def fAddBet (betID, punter, option, odds, coins)
-      @bets.addBet(betID,"FC PORTO X SC BRAGA",punter,option,odds,coins)
-      ##### EVENT.add(betID)
+   #Adds a bet:
+   #  1 - Into the punter's open bet list.
+   #  2 - Into the event's bet list.
+   def fAddBet (event, betID, punter, option, odds, coins)
+      @bets.addBet(betID, event.description ,punter,option,odds,coins)
+      event.addBet(betID)
    end
+
+
 
    ## Returns the amount of bets stored in the system.
    def fGetBetCounter
