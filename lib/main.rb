@@ -107,16 +107,46 @@ class Main
 
          @punterMenu.executeMenu
          case @punterMenu.option
-            when 1 then puts "ListOfEvents()"
-            when 2 then puts "HistoryOfBets()"
+            when 1 then puts listOfEvents
+            when 2 then puts historyOfBets(email)
             when 3 then puts "PlaceBet()"
-            when 4 then puts "AvailableCoins()"
-            when 5 then puts "InsertCoins()"
+            when 4 then puts availableCoins(email)
+            when 5 then puts insertCoins(email)
          end
          break if (@punterMenu.option==0)
       end
    end
-   
+
+   ## Prints the list of all events.
+   def listOfEvents
+      puts (@BetESS.fDisplayEvents)
+   end
+
+   ## Prints the user's bet history
+   def historyOfBets(email)
+      puts (@BetESS.fBetHistoryFrom(email))
+   end
+
+   # Shows how many coins a user has.
+   def availableCoins (email)
+      puts "The amount of coins in your account is: #{@BetESS.fGetBetESSCoinsFrom(email)}"
+   end
+
+   # Inserts a specified amount of coins in the user's account.
+   def insertCoins (email)
+      puts "How many coins do you wish to credit: "
+      coins = gets.chomp.to_f
+      @BetESS.fCreditCoinsTo(email,coins)
+      puts "The amount of coins in your account is: #{@BetESS.fGetBetESSCoinsFrom(email)}"
+   end
+
+
+
+
+
+
+
+   ########################################################
    def bookieApp(email)
       loop do
 
