@@ -6,14 +6,11 @@ module Users
 
   class Bookie < User
 
+     attr_reader :subscribedEvents
+
     def initialize(name, email, pwd)
       super(name,email,pwd)
       @subscribedEvents = Set.new([])
-    end
-
-    ## Getters
-    def getSubscribedEvents
-      @subscribedEvents
     end
 
     ################ EVENTS ##################
@@ -31,7 +28,7 @@ module Users
     # Returns the amount of subscribed events
     def amountOfSubscribedEvents
       @subscribedEvents.length
-   end
+    end
     #########################################
 
     def toString

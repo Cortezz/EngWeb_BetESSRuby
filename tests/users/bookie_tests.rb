@@ -24,13 +24,13 @@ class Bookie_Tests < Test::Unit::TestCase
    end
 
    def test_getSubscribedEvents1
-      assert_equal(0, @b.getSubscribedEvents.size())
+      assert_equal(0, @b.subscribedEvents.size())
    end
 
    def test_getSubscribedEvents2
       @b.subscribeTo(1)
       @b.subscribeTo(2)
-      events = @b.getSubscribedEvents
+      events = @b.subscribedEvents
       assert_equal(2, events.size())
    end
 

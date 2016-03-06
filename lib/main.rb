@@ -9,6 +9,12 @@ require_relative './users/userList'
 ## Bets
 require_relative './bets/bet'
 require_relative './bets/betList'
+## events
+require_relative './events/event'
+require_relative './events/normalEvent'
+## sports
+require_relative './sports/sport'
+require_relative './sports/football'
 ## UI
 require_relative 'UI/menu'
 ## Facade
@@ -87,6 +93,8 @@ class Main
       end
    end
 
+   ##################### PUNTER APP #########################
+
 
    def punterApp(email)
       loop do
@@ -108,8 +116,7 @@ class Main
          break if (@punterMenu.option==0)
       end
    end
-
-
+   
    def bookieApp(email)
       loop do
 

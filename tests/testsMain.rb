@@ -8,7 +8,12 @@ require_relative './users/userList_tests'
 ############ BET TESTS ############
 require_relative './bets/bet_tests'
 require_relative './bets/betList_tests'
-############ BET ESS ##############
+############ EVENTS TESTS #########
+require_relative './events/normalEvent_tests'
+############ SPORTS TESTS #########
+require_relative './sports/football_tests'
+require_relative './sports/sportsList_tests'
+############ FACADE ESS ###########
 require_relative 'facade_tests'
 
 
