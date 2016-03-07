@@ -11,17 +11,19 @@ class BookieObserver_Tests < Test::Unit::TestCase
       @b.subscribeTo(1)
    end
 
-   ## Test to verify the amount of notifications from a bookie after the end of events he was following
-   def test_observerNotifications1
+   ############# END OF EVENT #############
+
+   ## Tests to verify that end of event notifications are working
+   def test_endOfEventNotifications1
       assert_equal(0,@b.amountOfNotifications)
    end
 
-   def test_observerNotifications2
+   def test_endOfEventNotifications2
       @ne.closeEvent(1)
       assert_equal(1,@b.amountOfNotifications)
    end
 
-   def test_observerNotifications3
+   def test_endOfEventNotifications3
       ne2 = Events::NormalEvent.new(2,"FC Porto x SC Braga", "j@gmail.com",1.5,2,5)
       ne2.addObserver(@b)
       @b.subscribeTo(2)
@@ -29,10 +31,31 @@ class BookieObserver_Tests < Test::Unit::TestCase
       ne2.closeEvent(2)
       assert_equal(2,@b.amountOfNotifications)
    end
+   ############# ODD CHANGES #############
 
-   def test_observerNotifications4
-      @ne.closeEvent(1)
-      puts @b.notificationList
+   ## Tests to verify that odd changes notifications are working
+   def test_oddChangeNotifications1
+      assert_equal(0,@b.amountOfNotifications)
    end
-   ##########################
+
+   def test_oddChangeNotifications2
+      @ne.changeOdds([5,6,7])
+      assert_equal(1,@b.amountOfNotifications)
+   end
+
+   def test_oddChangeNotifications3
+      @ne.changeOdds([5,6,7])
+      @ne.changeOdds([6,7,8])
+      assert_equal(2,@b.amountOfNotifications)
+   end
+
+   def test_oddChangeNotifications4
+      ne2 = Events::NormalEvent.new(2,"FC Porto x SC Braga", "j@gmail.com",1.5,2,5)
+      ne2.addObserver(@b)
+      @b.subscribeTo(2)
+      @ne.changeOdds([4,5,6])
+      ne2.changeOdds([6,7,8])
+      assert_equal(2,@b.amountOfNotifications)
+   end
+
 end

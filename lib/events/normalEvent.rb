@@ -55,7 +55,7 @@ module Events
          @odd1 = list[0]
          @odd2 = list[2]
          @drawOdd = list[1]
-         ### NOTIFY OBSERVERS
+         notifyObservers()
       end
 
       def toString
