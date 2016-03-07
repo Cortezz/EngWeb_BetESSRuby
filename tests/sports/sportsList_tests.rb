@@ -1,5 +1,6 @@
 require_relative '../../lib/sports/sportsList'
 require_relative '../../lib/events/normalEvent'
+require_relative '../../lib/users/bookie'
 require 'test/unit'
 
 class SportsList_Tests < Test::Unit::TestCase
@@ -10,6 +11,7 @@ class SportsList_Tests < Test::Unit::TestCase
       @sports.addSport(@football.name, @football)
       @ne = Events::NormalEvent.new(1,"FC Porto x SC Braga", "j@gmail.com",1.5,2,5)
       @sports.addEvent(@football.name, @ne)
+      @b = Users::Bookie.new("Filipe","f@gmail.com","12345")
    end
 
 
@@ -119,7 +121,6 @@ class SportsList_Tests < Test::Unit::TestCase
       events = @sports.mapOfAllEvents
       assert_equal(true, (events.has_key?(1) && events.has_key?(2)))
    end
-
 
 
 

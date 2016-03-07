@@ -97,6 +97,8 @@ class Facade
       @users.getSubscribedEventsFrom(email)
    end
 
+
+
    ############# ADMIN ################
 
    ## Adds an admin into the user's list.
@@ -118,7 +120,11 @@ class Facade
       @sports.addEvent(name,event)
    end
 
-   ## fSubscribeBookieToEvent!
+   ## Adds a bookie subscription to a certain event
+   def fsubscribeBookieToEvent(eventID, bookieEmail)
+      b = @users.getUser(bookieEmail)
+      @sports.subscribeBookieToEvent(eventID,b)
+   end
 
    ## The events are mapped according to the sport they represent. This method returns a single collection with all events in it.
    def fGetAllEvents
@@ -167,19 +173,35 @@ class Facade
       event.addBet(betID)
    end
 
-
-
    ## Returns the amount of bets stored in the system.
    def fGetBetCount
       @bets.betCount
    end
 
-   ## TO-DO
+   ## Closes the bets of a specified event, and credit/debits into their account based on the outcome.
+   def fCloseEvent (event, outcome)
+      gains = losses = 0
+      punterBets = event.bets
 
+      punterBets.each do |betID|
+         b = @bets.getBet(betID)
+         if (b.option == outcome)
+            b.closeBet(true)
+            value = b.coins * b.odd
+            @users.creditCoinsTo(b.punter.email, value)
+            gains += value
+         else
+            b.closeBet(false)
+            losses += b.coins
+         end
+         @users.closeOpenBetTo(betID,b.punter.email,)
+      end
 
-
-
-
+      event.gains = gains
+      event.losses = losses
+      event.closeEvent(outcome)
+      fRemoveEvent(event)
+   end
 
 
 end

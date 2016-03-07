@@ -7,7 +7,7 @@ class Facade_Tests < Test::Unit::TestCase
    def setup
       @BetESS = Facade.new
       @name = "josé"
-      @email = "jo@gmail.com"
+      @email = "j@gmail.com"
       @pwd = "12345"
       @ne = Events::NormalEvent.new(1,"FC Porto x SC Braga", "j@gmail.com",1.5,2,5)
       @f = Sports::Football.new ("Football")
@@ -186,9 +186,17 @@ class Facade_Tests < Test::Unit::TestCase
    def test_fAddBet1
       events = @BetESS.fMapOfAllEvents
       e1 = events[1]
-      @BetESS.fAddBet(e1, 5, "f@gmail.com",1, 5.22, 200)
+      @BetESS.fAddBet(e1, 5, "j@gmail.com",1, 5.22, 200)
       assert_equal(true,e1.bets.include?(5))
    end
+
+   # fCloseEvent tests
+   def test_fCloseEvent1
+      @BetESS.fAddBet(@ne, 5, "j@gmail.com",1, 5.22, 200)
+      @BetESS.fCloseEvent(@ne,2)
+      assert_equal(1, @BetESS.fAmountOfNotificationsFrom("j@gmail.com"))
+   end
+
 
 
 

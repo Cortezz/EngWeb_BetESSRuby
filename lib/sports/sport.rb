@@ -34,6 +34,11 @@ module Sports
          end
       end
 
+      ## Adds a bookie to an event's observer list
+      def addSubscribedBookieTo(eventID, bookie)
+         events[eventID].addObserver(bookie)
+      end
+
 
    end
 end
