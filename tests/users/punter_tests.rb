@@ -1,4 +1,5 @@
 require_relative '../../lib/users/punter'
+require_relative '../../lib/bets/bet'
 require 'test/unit'
 
 class Punter_Tests < Test::Unit::TestCase
@@ -8,6 +9,7 @@ class Punter_Tests < Test::Unit::TestCase
       @email = "fa@gmail.com"
       @password = "12345"
       @p = Users::Punter.new(@name, @email,@password)
+      @b = Bets::Bet.new(1, "FC Porto x SC Braga", @p, 1, 2.33, 250)
    end
 
    ## Getters
@@ -91,6 +93,24 @@ class Punter_Tests < Test::Unit::TestCase
       @p.closeOpenBet(100)
       assert_equal(true, (@p.closedBets.size()==2 && @p.openBets.size()==1))
    end
+
+   ## Tests to verify that end of event notifications are working
+   def test_endOfBetNotification
+      assert_equal(0,@p.amountOfNotifications)
+   end
+
+   def test_endOfEventNotifications2
+      @b.closeBet(true)
+      assert_equal(1,@p.amountOfNotifications)
+   end
+
+   def test_endOfEventNotifications3
+      b2 = Bets::Bet.new(1, "FC Porto x SC Braga", @p, 0, 2.33, 250)
+      @b.closeBet(false)
+      b2.closeBet(true)
+      assert_equal(2,@p.amountOfNotifications)
+   end
+
 
 
 

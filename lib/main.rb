@@ -180,9 +180,9 @@ class Main
          @bookieMenu.executeMenu
          case @bookieMenu.option
             when 1 then puts showSportsMenu(email)
-            when 2 then puts "changeOdds()"
-            when 3 then puts "subscribeToEvent()"
-            when 4 then puts "ListOfSubscribedEvents()"
+            when 2 then puts changeOdds(email)
+            when 3 then puts subscribeToEvent(email)
+            when 4 then puts listOfSubscribedEvents(email)
          end
          break if (@bookieMenu.option==0)
       end
@@ -212,11 +212,77 @@ class Main
 
       ne = Events::NormalEvent.new(@BetESS.fGetEventCount, description,bookieEmail,odd1,odd2,drawOdd)
       @BetESS.fAddEvent(sportname,ne)
-      #@BetESS.fSubscribeBookieToEvent(ne.eventID,bookieEmail)
+      @BetESS.fSubscribeBookieToEvent(ne.eventID,bookieEmail)
       @BetESS.fAddSubscribedEventTo(bookieEmail, ne.eventID)
       puts "Event was successfully added!"
    end
 
+   ## Changes the odds of a certain event and notifies every bookie who subscribed to it.
+   def changeOdds(bookieEmail)
+      subscribedEvents = @BetESS.fGetSubscribedEventsFrom(bookieEmail)
+      events = @BetESS.fMapOfAllEvents
+
+      # List of all events
+      puts "\t\tList of Events"
+      subscribedEvents.each {|sEvent| puts "#{events[sEvent].toString}-------"}
+
+      puts "Which event do you want to change the odds of: "
+      eID = gets.chomp.to_i
+      puts "-------"
+      e = events[eID]
+      puts "#{e.toString} \tNew Odds:"
+
+      newOdds = []
+      oldOdds = @BetESS.fDisplayOddsFrom(e.eventID)
+      oldOdds.each do |s, odd|
+         puts "#{s.desc}: "
+         odd = gets.chomp.to_f
+         newOdds.push(odd)
+      end
+      @BetESS.fChangeOddsTo(e.eventID, newOdds)
+      puts "##############################"
+
+
+   end
+
+   ## Method which handles the subscription of an event by a bookie.
+   ## In other words, it subscribes the bookie to a certain event and adds that same event into the bookie's subscribed events.
+   def subscribeToEvent (bookieEmail)
+      events = @BetESS.fMapOfAllEvents
+      subscribedEvents = @BetESS.fGetSubscribedEventsFrom(bookieEmail)
+
+      # Delete all the events he's already subscribed to
+      subscribedEvents.each do |eventID|
+         if (events.has_key?(eventID))
+            events.delete(eventID)
+         end
+      end
+
+      puts "\t\tList of Events"
+      events.each {|eventID,event| puts "#{event.toString}-------"}
+
+      if (events.length>0)
+         puts "Which event do yo want to subscribe to: "
+         id = gets.chomp.to_i
+
+         @BetESS.fSubscribeBookieToEvent(id,bookieEmail)
+         @BetESS.fAddSubscribedEventTo(bookieEmail,id)
+         puts "Event subscription was successful!"
+      else puts "There are no subscribable events."
+      end
+
+
+   end
+
+   ## Prints the list of all subscribed events from a certain bookie.
+   def listOfSubscribedEvents (bookieEmail)
+      events = @BetESS.fMapOfAllEvents
+      subscribedEvents = @BetESS.fGetSubscribedEventsFrom(bookieEmail)
+
+      puts "\t\tSubscribed Events:"
+      subscribedEvents.each {|eventID| puts "#{events[eventID].toString}------"}
+      puts "########"
+   end
 
    ##################### ADMIN APP ######################
 
@@ -224,11 +290,29 @@ class Main
       loop do
          @adminMenu.executeMenu
          case @adminMenu.option
-         when 1 then puts "determineOutcome()"
+         when 1 then puts determineOutcome
          end
 
          break if (@adminMenu.option==0)
       end
+   end
+
+   ## Finishes an event (by registering its outcome), closes every bet associated with it
+   def determineOutcome
+      events = @BetESS.fMapOfAllEvents
+      puts (@BetESS.fDisplayEvents)
+
+      puts "Which event do you want to determine the outcome of: "
+      id = gets.chomp.to_i
+      e = events[id]
+      puts e.toString
+
+      puts "What is the outcome of that event: "
+      outcome = gets.chomp.to_i
+
+      @BetESS.fCloseEvent(e,outcome)
+      puts "##############"
+
    end
 
    ######################################################

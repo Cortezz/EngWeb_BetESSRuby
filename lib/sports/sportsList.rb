@@ -27,11 +27,11 @@ module Sports
 
 
       ## Removes an event from the system.
-      def removeEvent (event)
+      def removeEvent (eventID)
          @sports.each do |name,sport|
             events = sport.events
-            if (events.has_key?(event))
-               sport.removeEvent(event)
+            if (events.has_key?(eventID))
+               sport.removeEvent(eventID)
             end
          end
       end
@@ -50,15 +50,14 @@ module Sports
          result
       end
 
-      ## OBSERVER!!
       ## dds a bookie to an event's observers list.
-      #def subscribeBookieToEvent (eventId, bookie)
-      #   @sports.each do |name,sport|
-   #         if (sport.containsEvent(eventID))
-#               sport.addSubscribedBookieTo(eventID,bookie)
-         #   end
-         #end
-      #end
+      def subscribeBookieToEvent (eventID, bookie)
+         @sports.each do |name,sport|
+           if (sport.containsEvent(eventID))
+               sport.addSubscribedBookieTo(eventID,bookie)
+           end
+         end
+      end
 
       ## Returns the odds of all outcomes from a certain event.
       def slDisplayOddsFrom (eventID)
