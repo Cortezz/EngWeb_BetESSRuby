@@ -121,7 +121,7 @@ class Facade
    end
 
    ## Adds a bookie subscription to a certain event
-   def fsubscribeBookieToEvent(eventID, bookieEmail)
+   def fSubscribeBookieToEvent(eventID, bookieEmail)
       b = @users.getUser(bookieEmail)
       @sports.subscribeBookieToEvent(eventID,b)
    end
@@ -157,8 +157,8 @@ class Facade
    end
 
    ## Auxiliar method called by @CloseBet in order to remove an event from the system.
-   def fRemoveEvent (e)
-      @sports.removeEvent(e)
+   def fRemoveEvent (eventID)
+      @sports.removeEvent(eventID)
    end
    ############# BETS #################
 
@@ -200,7 +200,7 @@ class Facade
       event.gains = gains
       event.losses = losses
       event.closeEvent(outcome)
-      fRemoveEvent(event)
+      fRemoveEvent(event.eventID)
    end
 
 

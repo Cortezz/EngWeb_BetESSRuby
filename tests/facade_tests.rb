@@ -11,9 +11,12 @@ class Facade_Tests < Test::Unit::TestCase
       @pwd = "12345"
       @ne = Events::NormalEvent.new(1,"FC Porto x SC Braga", "j@gmail.com",1.5,2,5)
       @f = Sports::Football.new ("Football")
+      @BetESS.fAddBookie(@name, "bookie@gmail.com",@pwd)
       @BetESS.fAddSport(@f.name, @f)
       @BetESS.fAddEvent(@f.name, @ne)
       @BetESS.fAddPunter(@name, @email, @pwd)
+      @BetESS.fSubscribeBookieToEvent(@ne.eventID,"bookie@gmail.com")
+      @BetESS.fAddSubscribedEventTo("bookie@gmail.com", @ne.eventID)
    end
 
    ######## USERS ###########

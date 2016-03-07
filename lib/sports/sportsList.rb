@@ -27,11 +27,11 @@ module Sports
 
 
       ## Removes an event from the system.
-      def removeEvent (event)
+      def removeEvent (eventID)
          @sports.each do |name,sport|
             events = sport.events
-            if (events.has_key?(event))
-               sport.removeEvent(event)
+            if (events.has_key?(eventID))
+               sport.removeEvent(eventID)
             end
          end
       end

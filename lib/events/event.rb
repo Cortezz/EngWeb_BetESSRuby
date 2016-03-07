@@ -26,7 +26,7 @@ module Events
       ## Closes an event by changing its outcome (from -1 to some other value).
       def closeEvent (outcome)
          @outcome = outcome
-         notifyObservers()
+         notifyObservers
       end
 
       ## Adds a bet to this event.
