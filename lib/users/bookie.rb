@@ -29,6 +29,20 @@ module Users
     def amountOfSubscribedEvents
       @subscribedEvents.length
     end
+    ############# OBSERVER Methods ###########
+
+    def update (event)
+      if (event.outcome == -1)
+         s = "The odds of an event you've subscribed to have changed!\n"
+         s << event.toString
+      else
+         s = "An event you've subscribed to has ended!\n"
+         s << event.toString
+         s << "Gains: #{event.gains} coins.\n"
+         s << "Losses: #{event.losses} coins.\n"
+      end
+      @notifications.push(s)
+    end
     #########################################
 
     def toString

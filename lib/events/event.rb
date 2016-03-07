@@ -1,6 +1,8 @@
+require_relative '../observer/subject'
 module Events
 
    class Event
+      include Subject
 
       attr_accessor :description
       attr_accessor :gains
@@ -11,6 +13,7 @@ module Events
       attr_reader :bets
 
       def initialize (id, description, bookie)
+         super()
          @description = description
          @gains = @losses = 0
          @eventID = id
@@ -23,7 +26,7 @@ module Events
       ## Closes an event by changing its outcome (from -1 to some other value).
       def closeEvent (outcome)
          @outcome = outcome
-         ## notifyObservers(Enum.EndOfEvent)
+         notifyObservers()
       end
 
       ## Adds a bet to this event.
