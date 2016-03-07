@@ -161,8 +161,9 @@ class Facade
    #Adds a bet:
    #  1 - Into the punter's open bet list.
    #  2 - Into the event's bet list.
-   def fAddBet (event, betID, punter, option, odds, coins)
-      @bets.addBet(betID, event.description ,punter,option,odds,coins)
+   def fAddBet (event, betID, punterEmail, option, odds, coins)
+      punter = @users.getUser(punterEmail)
+      @bets.addBet(betID, event.description,punter,option,odds,coins)
       event.addBet(betID)
    end
 

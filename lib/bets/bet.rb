@@ -1,4 +1,4 @@
-
+require_relative '../observer/subject'
 
 module Bets
 
@@ -13,10 +13,11 @@ module Bets
       attr_reader :closed
       attr_reader :won
 
-      def initialize (bID, desc, name, opt, odds, coins)
+      def initialize (bID, desc, punter, opt, odds, coins)
+         super()
          @betID = bID
          @description = desc
-         @punter = name
+         @punter = punter
          @option = opt
          @odd = odds
          @coins = coins
@@ -27,6 +28,7 @@ module Bets
       def closeBet (wonBet)
          @closed = true
          @won = wonBet
+         @punter.update(self)
       end
 
 

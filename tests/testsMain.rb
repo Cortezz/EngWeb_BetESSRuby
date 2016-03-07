@@ -15,6 +15,7 @@ require_relative './sports/football_tests'
 require_relative './sports/sportsList_tests'
 ############ OBSERVER TESTS #######
 require_relative './observer/BookieObserver_Tests'
+require_relative './observer/PunterObserver_Tests'
 ############ FACADE ESS ###########
 require_relative 'facade_tests'
 

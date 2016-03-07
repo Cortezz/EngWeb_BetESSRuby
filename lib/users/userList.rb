@@ -68,9 +68,9 @@ module Users
          @users[email].creditCoins(amount)
       end
 
-         #Debits coins from a certain user
-         def debitCoinsFrom (email, amount)
-            @users[email].debitCoins(amount)
+      #Debits coins from a certain user
+      def debitCoinsFrom (email, amount)
+         @users[email].debitCoins(amount)
       end
 
       # Adds a bet to a certain punter, given his e-mail.

@@ -40,6 +40,10 @@ module Users
             @closedBets.add(betID)
          end
       end
+      ######### OBSERVER methods ##########
+      def update (bet)
+         @notifications.push(bet.toString)
+      end
       #####################################
 
       def toString
